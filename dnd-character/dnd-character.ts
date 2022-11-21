@@ -9,7 +9,7 @@ export class DnDCharacter {
 
   public constructor(){
     this.constitution = DnDCharacter.generateAbilityScore();
-    this.hitpoints = Math.round(10 + DnDCharacter.getModifierFor(this.constitution));
+    this.hitpoints = 10 + DnDCharacter.getModifierFor(this.constitution);
     this.strength = DnDCharacter.generateAbilityScore();
     this.dexterity = DnDCharacter.generateAbilityScore();
     this.intelligence = DnDCharacter.generateAbilityScore();
@@ -17,7 +17,9 @@ export class DnDCharacter {
     this.charisma = DnDCharacter.generateAbilityScore();
   }
 
-  public static generateAbilityScore = (): number => [Math.random() * 10, Math.random() * 10, Math.random() * 10, Math.random() * 10].sort().slice(0,2).reduce((before, current) => before + current);
+  private static randomNumberGen = ():number => Math.floor(Math.random() * 10);
+
+  public static generateAbilityScore = (): number => [this.randomNumberGen(), this.randomNumberGen(), this.randomNumberGen(), this.randomNumberGen()].sort().slice(-2).reduce((before, current) => before + current);
 
   public static getModifierFor = (abilityValue: number): number => Math.floor((abilityValue - 10) / 2);
 }
